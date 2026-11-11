@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Loja de Roupas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(to bottom, #fce7f3 0%, #fff5fa 28%, #ffffff 68%);
+        }
+    </style>
+</head>
+<body class="text-gray-800 antialiased">
+
+    <!-- Navegação -->
+    <nav class="bg-white/80 backdrop-blur-sm shadow-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+            <a href="#" class="text-xl font-bold tracking-wider text-gray-900">MODA & CO.</a>
+            <button onclick="toggleCarrinho()" class="relative p-2 text-gray-600 hover:text-black focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                </svg>
+                <span id="cart-count" class="absolute top-0 right-0 bg-black text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">0</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Banner Principal -->
+    <header class="py-16 text-center px-4">
+        <h1 class="text-4xl font-light tracking-wide mb-2 text-gray-900">Nova Coleção de Primavera</h1>
+        <p class="text-gray-500 max-w-md mx-auto text-sm mb-6">Peças minimalistas, confortáveis e atemporais para o seu dia a dia.</p>
+        <a href="#vitrine" class="inline-block bg-black text-white px-6 py-3 text-sm font-semibold tracking-wider hover:bg-gray-800 transition">VER PRODUTOS</a>
+    </header>
+
+    <!-- Vitrine de Produtos -->
+    <main id="vitrine" class="max-w-6xl mx-auto px-4 py-6">
+        <div class="grid grid-cols-1 lg:grid-cols-[200px_minmax(0,1fr)] gap-8">
+            <aside class="lg:sticky lg:top-20 lg:self-start" aria-label="Menu de categorias">
+                <h2 class="text-sm font-bold uppercase tracking-wider text-gray-500 mb-3">Categorias</h2>
+                <nav class="flex gap-2 overflow-x-auto pb-2 lg:flex-col lg:overflow-visible">
+                    <button type="button" onclick="filtrarCategoria('todas')" data-filtro="todas" aria-pressed="true" class="whitespace-nowrap rounded px-4 py-2 text-left text-sm font-medium bg-pink-600 text-white">Todas as peças</button>
+                    <button type="button" onclick="filtrarCategoria('calcas')" data-filtro="calcas" aria-pressed="false" class="whitespace-nowrap rounded px-4 py-2 text-left text-sm font-medium bg-white text-gray-700 hover:bg-pink-50">Calças</button>
+                    <button type="button" onclick="filtrarCategoria('blusinhas')" data-filtro="blusinhas" aria-pressed="false" class="whitespace-nowrap rounded px-4 py-2 text-left text-sm font-medium bg-white text-gray-700 hover:bg-pink-50">Blusinhas</button>
+                    <button type="button" onclick="filtrarCategoria('vestidos')" data-filtro="vestidos" aria-pressed="false" class="whitespace-nowrap rounded px-4 py-2 text-left text-sm font-medium bg-white text-gray-700 hover:bg-pink-50">Vestidos</button>
+                    <button type="button" onclick="filtrarCategoria('jaquetas')" data-filtro="jaquetas" aria-pressed="false" class="whitespace-nowrap rounded px-4 py-2 text-left text-sm font-medium bg-white text-gray-700 hover:bg-pink-50">Jaquetas</button>
+                </nav>
+            </aside>
+
+            <div>
+                <section aria-labelledby="titulo-categorias" class="mb-8">
+                    <h2 id="titulo-categorias" class="text-lg font-semibold mb-3 tracking-wide">Explore por categoria</h2>
+                    <div class="grid grid-cols-4 gap-2 sm:gap-4">
+                        <button type="button" onclick="filtrarCategoria('calcas')" class="group relative h-20 sm:h-24 overflow-hidden rounded-lg bg-gray-200 text-left">
+                            <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="" class="h-full w-full object-cover transition group-hover:scale-105">
+                            <span class="absolute inset-0 bg-black/30"></span>
+                            <span class="absolute bottom-2 left-2 text-xs sm:text-sm font-semibold text-white">Calças</span>
+                        </button>
+                        <button type="button" onclick="filtrarCategoria('blusinhas')" class="group relative h-20 sm:h-24 overflow-hidden rounded-lg bg-gray-200 text-left">
+                            <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="" class="h-full w-full object-cover transition group-hover:scale-105">
+                            <span class="absolute inset-0 bg-black/30"></span>
+                            <span class="absolute bottom-2 left-2 text-xs sm:text-sm font-semibold text-white">Blusinhas</span>
+                        </button>
+                        <button type="button" onclick="filtrarCategoria('vestidos')" class="group relative h-20 sm:h-24 overflow-hidden rounded-lg bg-gray-200 text-left">
+                            <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="" class="h-full w-full object-cover transition group-hover:scale-105">
+                            <span class="absolute inset-0 bg-black/30"></span>
+                            <span class="absolute bottom-2 left-2 text-xs sm:text-sm font-semibold text-white">Vestidos</span>
+                        </button>
+                        <button type="button" onclick="filtrarCategoria('jaquetas')" class="group relative h-20 sm:h-24 overflow-hidden rounded-lg bg-gray-200 text-left">
+                            <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="" class="h-full w-full object-cover transition group-hover:scale-105">
+                            <span class="absolute inset-0 bg-black/30"></span>
+                            <span class="absolute bottom-2 left-2 text-xs sm:text-sm font-semibold text-white">Jaquetas</span>
+                        </button>
+                    </div>
+                </section>
+
+                <section aria-labelledby="titulo-produtos">
+                    <h2 id="titulo-produtos" class="text-2xl font-semibold mb-8 text-center tracking-wide">Nossos Destaques</h2>
+                    <div id="produtos-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6"></div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Lateral do Carrinho e Finalização -->
+    <div id="carrinho-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs hidden flex justify-end">
+        <div class="bg-white w-full max-w-md h-full flex flex-col shadow-2xl overflow-y-auto">
+            
+            <!-- Cabeçalho do Carrinho -->
+            <div class="p-4 border-b flex justify-between items-center bg-gray-50">
+                <h3 class="text-lg font-bold">Seu Carrinho</h3>
+                <button onclick="toggleCarrinho()" class="text-gray-500 hover:text-black text-xl font-bold p-2">&times;</button>
+            </div>
+
+            <!-- Lista de Itens -->
+            <div id="itens-carrinho" class="p-4 space-y-4 flex-1 overflow-y-auto">
+                <p class="text-gray-400 text-center py-8">Seu carrinho está vazio.</p>
+            </div>
+
+            <!-- Resumo e Formulário de Entrega -->
+            <div id="checkout-container" class="p-4 border-t border-gray-200 bg-gray-50 hidden">
+                <div class="flex justify-between font-bold text-lg mb-4">
+                    <span>Total dos Produtos:</span>
+                    <span id="total-carrinho">R$ 0,00</span>
+                </div>
+
+                <form id="form-entrega" class="space-y-3" onsubmit="enviarPedido(event)">
+                    <h4 class="font-semibold text-sm text-gray-700 border-b pb-1">Dados de Entrega</h4>
+                    
+                    <div>
+                        <label class="block text-xs text-gray-500 uppercase font-semibold">Nome Completo</label>
+                        <input type="text" id="nome" required class="w-full p-2 border border-gray-300 rounded text-sm focus:outline-none focus:border-black">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-500 uppercase font-semibold">Rua, Número e Apto</label>
+                        <input type="text" id="rua" required class="w-full p-2 border border-gray-300 rounded text-sm focus:outline-none focus:border-black">
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block text-xs text-gray-500 uppercase font-semibold">Bairro</label>
+                            <input type="text" id="bairro" required class="w-full p-2 border border-gray-300 rounded text-sm focus:outline-none focus:border-black">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-500 uppercase font-semibold">Cidade/UF</label>
+                            <input type="text" id="cidade" required class="w-full p-2 border border-gray-300 rounded text-sm focus:outline-none focus:border-black">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full bg-emerald-600 text-white font-bold py-3 px-4 rounded hover:bg-emerald-700 transition flex items-center justify-center gap-2 mt-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397 0 11.966 0c3.178.001 6.169 1.24 8.424 3.496 2.254 2.256 3.491 5.251 3.491 8.43 0 6.572-5.337 11.92-11.903 11.92-2.01 0-3.992-.511-5.741-1.486L0 24zm5.821-3.666l.346.206c1.758 1.043 3.8 1.593 5.794 1.594 5.465 0 9.911-4.444 9.914-9.913.002-2.651-1.03-5.144-2.906-7.022C17.062 3.321 14.57 2.288 11.92 2.289c-5.47 0-9.92 4.447-9.923 9.92-.001 2.062.539 4.075 1.564 5.845l.226.388-.994 3.633 3.704-.971z"/>
+                        </svg>
+                        Finalizar pelo WhatsApp
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- INSIRA SEU NÚMERO DE WHATSAPP AQUI ---
+        // Formato: Código do país + DDD + Número (apenas números, sem traços ou espaços)
+        const SEU_TELEFONE = "";
+
+        let carrinho = [];
+
+        const catalogo = [
+            {
+                categoria: 'blusinhas',
+                imagens: [
+                    'photo-1521572163474-6864f9cf17ab',
+                    'photo-1576566588028-4147f3842f27',
+                    'photo-1583743814966-8936f37f4678',
+                    'photo-1503342217505-b0a15ec3261c'
+                ],
+                itens: [
+                    ['Camiseta Algodão Premium', 89.90],
+                    ['Blusinha Canelada Básica', 69.90],
+                    ['Regata Feminina Essentials', 59.90],
+                    ['Blusa Cropped Manga Curta', 74.90],
+                    ['Blusinha Decote V', 79.90],
+                    ['Camiseta Oversized', 99.90],
+                    ['Blusa Manga Bufante', 109.90],
+                    ['Regata Canelada', 64.90],
+                    ['Blusinha Floral', 94.90],
+                    ['Blusa de Linho', 119.90],
+                    ['Cropped Básico', 69.90],
+                    ['Blusa Manga Longa', 109.90],
+                    ['Camiseta Listrada', 84.90],
+                    ['Blusinha Gola Alta', 89.90],
+                    ['Blusa Peplum', 114.90]
+                ]
+            },
+            {
+                categoria: 'calcas',
+                imagens: [
+                    'photo-1542272604-787c3835535d',
+                    'photo-1473966968600-fa801b869a1a',
+                    'photo-1541099649105-f69ad21f3246'
+                ],
+                itens: [
+                    ['Calça Jeans Slim Fit', 189.90],
+                    ['Calça Jeans Mom', 199.90],
+                    ['Calça Wide Leg', 219.90],
+                    ['Calça Pantalona de Linho', 229.90],
+                    ['Calça Alfaiataria Reta', 239.90],
+                    ['Calça Jogger Casual', 159.90],
+                    ['Calça Jeans Skinny', 179.90],
+                    ['Calça Cargo Feminina', 209.90],
+                    ['Calça Flare Jeans', 199.90],
+                    ['Calça Reta de Sarja', 189.90]
+                ]
+            },
+            {
+                categoria: 'vestidos',
+                imagens: [
+                    'photo-1595777457583-95e059d581b8',
+                    'photo-1591369822096-ffd140ec948f',
+                    'photo-1566174053879-31528523f8ae',
+                    'photo-1515886657613-9f3515b0c78f'
+                ],
+                itens: [
+                    ['Vestido Midi Canelado', 149.90],
+                    ['Vestido Floral Primavera', 179.90],
+                    ['Vestido Longo Viscose', 219.90],
+                    ['Vestido Curto Soltinho', 139.90],
+                    ['Vestido Chemise', 199.90],
+                    ['Vestido Midi Envelope', 189.90],
+                    ['Vestido de Linho', 239.90],
+                    ['Vestido Tubinho Clássico', 169.90],
+                    ['Vestido Longo Estampado', 229.90],
+                    ['Vestido Canelado com Fenda', 159.90]
+                ]
+            },
+            {
+                categoria: 'jaquetas',
+                imagens: [
+                    'photo-1551028719-00167b16eac5',
+                    'photo-1544022613-e87ca75a784a',
+                    'photo-1591047139829-d91aecb6caea'
+                ],
+                itens: [
+                    ['Jaqueta Bomber Preta', 249.90],
+                    ['Jaqueta Jeans Clássica', 229.90],
+                    ['Jaqueta de Couro Sintético', 289.90],
+                    ['Jaqueta Corta-Vento', 199.90],
+                    ['Jaqueta Puffer Feminina', 319.90]
+                ]
+            }
+        ];
+
+        const produtos = catalogo.flatMap((grupo) =>
+            grupo.itens.map(([nome, preco], indice) => ({
+                nome,
+                preco,
+                categoria: grupo.categoria,
+                imagem: grupo.imagens[indice % grupo.imagens.length]
+            }))
+        );
+
+        function renderizarProdutos() {
+            const grade = document.getElementById('produtos-grid');
+
+            produtos.forEach((produto) => {
+                const cartao = document.createElement('article');
+                cartao.dataset.categoria = produto.categoria;
+                cartao.className = 'bg-white rounded-lg overflow-hidden border border-gray-100 flex flex-col justify-between';
+
+                const imagem = document.createElement('img');
+                imagem.src = `https://images.unsplash.com/${produto.imagem}?auto=format&fit=crop&w=800&q=80`;
+                imagem.alt = produto.nome;
+                imagem.loading = 'lazy';
+                imagem.className = 'w-full h-64 object-cover';
+
+                const conteudo = document.createElement('div');
+                conteudo.className = 'p-4 flex-1 flex flex-col justify-between';
+
+                const detalhes = document.createElement('div');
+                const nome = document.createElement('h3');
+                nome.className = 'font-semibold text-gray-950';
+                nome.textContent = produto.nome;
+
+                const preco = document.createElement('p');
+                preco.className = 'text-gray-500 text-sm mt-1';
+                preco.textContent = formatarMoeda(produto.preco);
+                detalhes.append(nome, preco);
+
+                const botao = document.createElement('button');
+                botao.type = 'button';
+                botao.className = 'w-full mt-4 bg-black text-white py-2 text-xs font-semibold uppercase tracking-wider hover:bg-gray-800 transition';
+                botao.textContent = 'Adicionar';
+                botao.addEventListener('click', () => adicionarAoCarrinho(produto.nome, produto.preco));
+
+                conteudo.append(detalhes, botao);
+                cartao.append(imagem, conteudo);
+                grade.appendChild(cartao);
+            });
+        }
+
+        renderizarProdutos();
+
+        function toggleCarrinho() {
+            const modal = document.getElementById('carrinho-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        function adicionarAoCarrinho(nome, preco) {
+            carrinho.push({ nome, preco });
+            atualizarCarrinho();
+        }
+
+        function filtrarCategoria(categoria) {
+            const produtosVisiveis = produtos.filter((produto) =>
+                categoria === 'todas' || produto.categoria === categoria
+            ).length;
+
+            document.querySelectorAll('#produtos-grid [data-categoria]').forEach((produto) => {
+                produto.classList.toggle(
+                    'hidden',
+                    categoria !== 'todas' && produto.dataset.categoria !== categoria
+                );
+            });
+
+            document.querySelectorAll('[data-filtro]').forEach((botao) => {
+                const selecionado = botao.dataset.filtro === categoria;
+                botao.setAttribute('aria-pressed', String(selecionado));
+                botao.classList.toggle('bg-pink-600', selecionado);
+                botao.classList.toggle('text-white', selecionado);
+                botao.classList.toggle('bg-white', !selecionado);
+                botao.classList.toggle('text-gray-700', !selecionado);
+            });
+
+            const nomes = {
+                todas: 'Nossos Destaques',
+                calcas: 'Calças',
+                blusinhas: 'Blusinhas',
+                vestidos: 'Vestidos',
+                jaquetas: 'Jaquetas'
+            };
+            document.getElementById('titulo-produtos').textContent =
+                categoria === 'todas'
+                    ? nomes[categoria]
+                    : `${nomes[categoria]} (${produtosVisiveis} produtos)`;
+        }
+
+        function atualizarCarrinho() {
+            const lista = document.getElementById('itens-carrinho');
+            const contador = document.getElementById('cart-count');
+            const checkout = document.getElementById('checkout-container');
+            const totalElemento = document.getElementById('total-carrinho');
+
+            contador.textContent = String(carrinho.length);
+            lista.replaceChildren();
+
+            if (carrinho.length === 0) {
+                const vazio = document.createElement('p');
+                vazio.className = 'text-gray-400 text-center py-8';
+                vazio.textContent = 'Seu carrinho está vazio.';
+                lista.appendChild(vazio);
+                checkout.classList.add('hidden');
+                totalElemento.textContent = formatarMoeda(0);
+                return;
+            }
+
+            carrinho.forEach((item) => {
+                const linha = document.createElement('div');
+                linha.className = 'flex justify-between gap-4 border-b border-gray-100 pb-3';
+
+                const nomeItem = document.createElement('span');
+                nomeItem.className = 'text-sm font-medium';
+                nomeItem.textContent = item.nome;
+
+                const precoItem = document.createElement('span');
+                precoItem.className = 'text-sm text-gray-600 whitespace-nowrap';
+                precoItem.textContent = formatarMoeda(item.preco);
+
+                linha.append(nomeItem, precoItem);
+                lista.appendChild(linha);
+            });
+
+            const total = carrinho.reduce((soma, item) => soma + item.preco, 0);
+            totalElemento.textContent = formatarMoeda(total);
+            checkout.classList.remove('hidden');
+        }
+
+        function formatarMoeda(valor) {
+            return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        }
+
+        function enviarPedido(event) {
+            event.preventDefault();
+
+            if (!/^\d{10,15}$/.test(SEU_TELEFONE)) {
+                alert('Configure SEU_TELEFONE no código com DDI, DDD e número, usando apenas dígitos.');
+                return;
+            }
+
+            const total = carrinho.reduce((soma, item) => soma + item.preco, 0);
+            const produtos = carrinho
+                .map((item) => `- ${item.nome}: ${formatarMoeda(item.preco)}`)
+                .join('\n');
+            const mensagem = [
+                'Olá! Quero finalizar este pedido:',
+                produtos,
+                `Total: ${formatarMoeda(total)}`,
+                '',
+                `Nome: ${document.getElementById('nome').value.trim()}`,
+                `Endereço: ${document.getElementById('rua').value.trim()}`,
+                `Bairro: ${document.getElementById('bairro').value.trim()}`,
+                `Cidade/UF: ${document.getElementById('cidade').value.trim()}`
+            ].join('\n');
+
+            window.open(
+                `https://wa.me/${SEU_TELEFONE}?text=${encodeURIComponent(mensagem)}`,
+                '_blank',
+                'noopener,noreferrer'
+            );
+        }
+    </script>
+</body>
+</html>
